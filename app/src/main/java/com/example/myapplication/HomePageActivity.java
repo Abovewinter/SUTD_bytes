@@ -1,4 +1,6 @@
 package com.example.myapplication;
 
-public class HomePageActivity {
+import android.app.Activity;
+
+public class HomePageActivity extends Activity {
 }
