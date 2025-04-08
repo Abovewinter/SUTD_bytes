@@ -1,10 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:id="@+id/main"
     tools:context=".ShopRemoveActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/purple_background"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="50dp">
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="TAKE A REQUEST">
+    </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/textUser"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_gravity="left"
+            android:text="Logged in as:">
+        </TextView>
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:src="@drawable/user_icon">
+        </ImageView>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="Earn points for doing requests!">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ListView
+            android:id="@+id/requestListView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp" />
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
