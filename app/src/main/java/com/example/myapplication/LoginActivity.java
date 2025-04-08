@@ -60,6 +60,7 @@ public class LoginActivity extends Activity {
                                 // Login failed
                                 // Show a failure toast
                                 Toast.makeText(LoginActivity.this, "Login unsuccessful. Please try again.", Toast.LENGTH_SHORT).show();
+
                             }
                         });
             }
