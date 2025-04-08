@@ -49,7 +49,9 @@ public class LoginActivity extends Activity {
                                 Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
                                 // Start the HomePageActivity
-                                Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                                //Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                                //Order page
+                                Intent intent = new Intent(LoginActivity.this, OrderActivity.class);
                                 startActivity(intent);
 
                                 // Optional: Close the current login activity
