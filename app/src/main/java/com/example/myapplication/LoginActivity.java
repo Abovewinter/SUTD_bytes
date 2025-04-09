@@ -7,30 +7,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
-
-
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 
 public class LoginActivity extends Activity {
+
     private FirebaseAuth auth;
     private EditText loginEmail, loginPassword;
     private TextView signupRedirectText;
     private Button loginButton;
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if (currentUser != null) {
-            Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
-            startActivity(intent);
-            finish(); // close the login screen
-        }
-    }
+
+    private FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +35,7 @@ public class LoginActivity extends Activity {
         signupRedirectText = findViewById(R.id.signUpButton);
         loginPassword = findViewById(R.id.passwordEditText);  // Initialize loginPassword
 
-
+        db = FirebaseFirestore.getInstance();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,8 +53,6 @@ public class LoginActivity extends Activity {
                                 Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
                                 // Start the HomePageActivity
-                                //Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
-                                //Order page
                                 Intent intent = new Intent(LoginActivity.this, OrderActivity.class);
                                 startActivity(intent);
 
@@ -75,6 +66,7 @@ public class LoginActivity extends Activity {
                         });
             }
         });
+
         // Set OnClickListener for the signupRedirectText (TextView)
         signupRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +77,43 @@ public class LoginActivity extends Activity {
             }
         });
     }
+
+    // Fetch user data based on UID
+    private void fetchUserData(String uid) {
+        db.collection("users")  // Get the "users" collection
+                .document(uid)  // Access the document for this user
+                .get()  // Get the document
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            long points = document.getLong("points");
+
+                            // Pass the points data to the next activity
+                            Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+                            intent.putExtra("USER_POINTS", points);
+                            startActivity(intent);
+
+                            finish();
+                        }
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Error fetching user data.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    // Update user points after a purchase
+    private void addPointsToUser(String uid, double purchaseAmount) {
+        long pointsToAdd = (long) (purchaseAmount / 10);  // Example: 1 point for every 10 units of purchase
+
+        db.collection("users")
+                .document(uid)
+                .update("points", FieldValue.increment(pointsToAdd))  // Increment the points
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Points added successfully!", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to add points. Please try again.", Toast.LENGTH_SHORT).show();
+                });
+    }
 }
-
-
-
