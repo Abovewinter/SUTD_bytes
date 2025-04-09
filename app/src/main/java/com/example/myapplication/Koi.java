@@ -1,6 +1,9 @@
 package com.example.myapplication;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Koi implements FoodOption{
@@ -10,17 +13,37 @@ public class Koi implements FoodOption{
     }
 
     @Override
+    public String getmalllocation() {
+        return "Changi City Point";
+    }
+
+    @Override
+    public String getstorelocation() {
+        return "#B1-18";
+    }
+
+    @Override
+    public List<String> getcat() {
+        return Arrays.asList("Milk Tea","Black Tea");
+    }
+
+    @Override
     public List<String> getFoodNames() {
-        return Arrays.asList("Milk Tea", "Hazelnut Tea", "Oolong Tea");
+        return Arrays.asList("Jumbo Milk Tea", "Lychee Black Tea");
     }
 
     @Override
     public List<Double> getPrices() {
-        return Arrays.asList(3.5, 4.5, 3.8);
+        return Arrays.asList(5.8, 4.9);
     }
 
     @Override
     public List<Integer> getQuantities() {
         return Arrays.asList(1, 1, 1);
+    }
+
+    @Override
+    public List<Integer> DrawableImage() {
+        return Arrays.asList(R.drawable.jumbomilktea_removebg_preview,R.drawable.jumbomilktea_removebg_preview,R.drawable.lycheeblacktea);
     }
 }

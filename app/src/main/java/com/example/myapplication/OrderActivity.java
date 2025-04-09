@@ -30,7 +30,7 @@ public class OrderActivity extends Activity {
 
         btnKoi.setOnClickListener(v -> openFoodOptionActivity(new Koi()));
         btnWokhey.setOnClickListener(v -> openFoodOptionActivity(new Wokhey()));
-        //btnMc.setOnClickListener(v -> openFoodOptionActivity(new Mc()));
+        btnMc.setOnClickListener(v -> openFoodOptionActivity(new Mac()));
 
         
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
