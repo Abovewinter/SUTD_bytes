@@ -13,6 +13,21 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".FoodOptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MessagesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ShopRemoveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ShopAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".OrderActivity"
             android:exported="false" />
         <activity
