@@ -24,12 +24,13 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center">
+
         <TextView
+            android:id="@+id/textUser"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="left"
             android:text="Welcome back">
-
         </TextView>
 
         <ImageView
@@ -44,6 +45,7 @@
 
 
     <EditText
+        android:id="@+id/foodsearch"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:hint="What are you craving for today?"
