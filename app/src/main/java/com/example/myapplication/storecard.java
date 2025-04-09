@@ -21,9 +21,6 @@ public class storecard//used to format orderframe for store
     Drawable icon;
     Context context;
     //Specifics
-    List<String> Food;
-    int quantity;
-    List<Double> cost;
     storecard()
     {
 
@@ -31,16 +28,13 @@ public class storecard//used to format orderframe for store
     }
     //Constructor called in store format methods
     //View of layout orderframe, Store name, Store location, Store address, Drawable icon of store, context, points earned from order.
-    storecard(View card, String name, String place, String address, Drawable icon, Context context, int points,List<String> food, List<Double> cost, int quantity)
+    storecard(View card, String name, String place, String address, Drawable icon, Context context, int points)
     {
         this.card = card;
         this.name = name;
         this.place = place;
         this.address = address;
         this.icon = icon;
-        this.quantity = quantity;
-        this.cost = cost;
-        this.Food = food;
         editcard(context);
         editdistance(context, points);
 
@@ -73,13 +67,13 @@ public class storecard//used to format orderframe for store
 
     }
     //Store format methods
-    static void mcd(View card, Context context, int points, List<String> food, List<Double> cost, int qty)//McDonald's widget? Just an example obviously
+    static void mcd(View card, Context context, int points)//McDonald's widget? Just an example obviously
     {
-        new storecard(card, "McDonalds", "Pentagon", "idk", ContextCompat.getDrawable(context, R.drawable.mc_donald), context, points, food, cost, qty);
+        new storecard(card, "McDonalds", "Pentagon", "idk", ContextCompat.getDrawable(context, R.drawable.mc_donald), context, points);
     }
-    static void koi(View card, Context context, int points,List<String> food, List<Double> cost, int qty)//Koi widget
+    static void koi(View card, Context context, int points)//Koi widget
     {
-        new storecard(card, "Koi", "Changi City Point", "#B1-18", ContextCompat.getDrawable(context, R.drawable.jumbomilktea_removebg_preview), context, points, food, cost, qty);
+        new storecard(card, "Koi", "Changi City Point", "#B1-18", ContextCompat.getDrawable(context, R.drawable.jumbomilktea_removebg_preview), context, points);
     }
 
 
