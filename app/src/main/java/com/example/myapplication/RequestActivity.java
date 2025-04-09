@@ -1,5 +1,6 @@
 package com.example.myapplication;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,9 +14,14 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import java.util.Arrays;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RequestActivity extends Activity {
     LinearLayout scroll;
+    Order order;
     ImageView tester;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +52,26 @@ public class RequestActivity extends Activity {
         switch(store)
         {
             case "mc"://strings are just for testing
-                storecard.mcd(ord, this, points);//static method of stordercard, formats orderframe into McDonald's widget(example)
+                order = new Order("McDonalds", "Pentagon", "L1",
+                        Arrays.asList("Fish Burger","French Fries"), Arrays.asList(3,2), Arrays.asList(3.5,2.2),R.drawable.mc_donald);
+                storecard.mcd(ord, this, points,Arrays.asList("Fish Burger","French Fries"), Arrays.asList(3.5, 2.2), 1);//static method of stordercard, formats orderframe into McDonald's widget(example)
                 break;
             case "koi":
-                storecard.koi(ord, this, points);//static method of stordercard, formats orderframe into Koi widget
+                order = new Order("Koi", "Changi City Point", "#B1-18",
+                        Arrays.asList("Jumbo Milk Tea"), Arrays.asList(1), Arrays.asList(5.8),R.drawable.jumbomilktea_removebg_preview);
+                storecard.koi(ord, this, points,Arrays.asList("Jumbo Milk Tea"),Arrays.asList(5.8), 2);//static method of stordercard, formats orderframe into Koi widget
                 break;
 
         }
+        ord.setTag(order);
         ord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("TEST",  store);
+                Order selorder = (Order)v.getTag();
+                Intent intent = new Intent(RequestActivity.this, PickupActivity.class);
+                intent.putExtra("Selected Order", selorder);
+                startActivity(intent);
             }
         });
         scroll.addView(ord);

@@ -119,12 +119,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_margin="8dp"
+                    android:layout_margin="7dp"
                     android:text="Pick-up Order:">
                 </TextView>
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="200dp"
                     android:padding="12dp">
                     <LinearLayout
                         android:id="@+id/orderListLayout"
@@ -133,9 +133,17 @@
                         android:orientation="vertical" >
                     </LinearLayout>
                 </ScrollView>
+                <TextView
+                    android:id="@+id/totalcost"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="Total Cost:">
+
+                </TextView>
                 <Button
                     android:id="@+id/btn_accept"
-                    android:layout_margin="20dp"
+                    android:layout_margin="10dp"
                     android:layout_gravity="center"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
