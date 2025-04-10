@@ -106,7 +106,7 @@
                 android:id="@+id/store_name_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Koi" />
+                android:text="NIL" />
         </LinearLayout>
 
         <!-- Food item 1 -->
@@ -122,14 +122,14 @@
                 android:id="@+id/food_quantity_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1x" />
+                android:text="0x" />
 
             <TextView
                 android:id="@+id/food_name_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:text="Jumbo Bubble Milk Tea" />
+                android:text="Your cart is empty" />
 
             <Button
                 android:id="@+id/add_1"
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:paddingRight="10dp"
-                android:text="$5.80" />
+                android:text="NIL" />
         </LinearLayout>
     </LinearLayout>
 
@@ -185,7 +185,7 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:paddingRight="10dp"
-            android:text="$2.50">
+            android:text="NIL">
         </TextView>
     </LinearLayout>
 
@@ -205,7 +205,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="4dp"
-            android:text="short distance">
+            android:text="NIL">
         </TextView>
     </LinearLayout>
 
@@ -226,7 +226,7 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:paddingRight="10dp"
-            android:text="$5.80">
+            android:text="NIL">
         </TextView>
     </LinearLayout>
 
