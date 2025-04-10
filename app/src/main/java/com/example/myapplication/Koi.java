@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.graphics.drawable.Drawable;
+import android.widget.Button;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -39,11 +40,12 @@ public class Koi implements FoodOption{
 
     @Override
     public List<Integer> getQuantities() {
-        return Arrays.asList(1, 1, 1);
+        return Arrays.asList(1, 1, 1, 1, 1);
     }
 
     @Override
     public List<Integer> DrawableImage() {
         return Arrays.asList(R.drawable.jumbomilktea_removebg_preview,R.drawable.jumbomilktea_removebg_preview,R.drawable.lycheeblacktea);
     }
+
 }

@@ -37,7 +37,7 @@ public class Mac implements FoodOption{
 
     @Override
     public List<Integer> getQuantities() {
-        return Arrays.asList(1, 1, 1);
+        return Arrays.asList(1, 1, 1, 1, 1);
     }
 
     @Override

@@ -10,7 +10,7 @@ public interface FoodOption extends Serializable {
     List<String> getcat();
     List<String> getFoodNames();
     List<Double> getPrices();
-    List<Integer> getQuantities(); // optional, can return default values
-
+    List<Integer> getQuantities();
     List<Integer> DrawableImage();
+
 }
