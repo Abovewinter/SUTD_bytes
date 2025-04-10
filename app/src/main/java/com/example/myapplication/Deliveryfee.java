@@ -1,5 +1,8 @@
 package com.example.myapplication;
 
+
+
+
 public class Deliveryfee {
     final private static double DIST_SHORT = 1.5; //Short distance fee
     final private static double DIST_MED = 3.0; //Medium distance fee
@@ -13,6 +16,17 @@ public class Deliveryfee {
         }
         else{ //Long Distance
             return DIST_LONG;
+        }
+    }
+
+    public static String redeemDistance(double distance){
+        if(distance < 3.0){ //Short Distance
+            return "Short distance";
+        } else if (distance < 5.0) { //Medium Distance
+            return "Medium distance";
+        }
+        else{ //Long Distance
+            return "Long distance";
         }
     }
 

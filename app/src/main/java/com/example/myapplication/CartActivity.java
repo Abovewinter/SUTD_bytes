@@ -20,8 +20,8 @@ import java.util.List;
 
 public class CartActivity extends Activity {
     int quantity1 = 1;
-    double deliveryFee = 1.50;
-    String redeem_distance = "short distance";
+    double deliveryFee;
+    String redeem_distance;
     List<Double> prices1 = Arrays.asList(5.8,3.5,5.5);
     List<Double> prices2 = Arrays.asList(4.9,2.2,6.0);
     CartItem cartItems;
@@ -32,7 +32,8 @@ public class CartActivity extends Activity {
         setContentView(R.layout.activity_cart);
         Navigation.setupNavigation(this);
         cartItems = (CartItem) getIntent().getSerializableExtra("cart_items");
-
+        redeem_distance = Deliveryfee.redeemDistance(cartItems.getDistance());
+        deliveryFee = Deliveryfee.getDeliveryfee(cartItems.getDistance());
         Button add1 = findViewById(R.id.add_1);
         Button remove1 = findViewById(R.id.remove_1);
         TextView quantity = findViewById(R.id.food_quantity_cart);
