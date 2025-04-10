@@ -31,7 +31,7 @@
             android:name=".PickupActivity"
             android:exported="false" />
         <activity
-            android:name=".ShopAddActivity"
+            android:name=".RegistrationActivity"
             android:exported="false" />
         <activity
             android:name=".OrderActivity"
