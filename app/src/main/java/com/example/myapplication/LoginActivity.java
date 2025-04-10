@@ -92,6 +92,7 @@ public class LoginActivity extends Activity {
                             // Pass the points data to the next activity
                             Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
                             intent.putExtra("USER_POINTS", points);
+                            intent.putExtra("UID", uid);
                             startActivity(intent);
 
                             finish();
