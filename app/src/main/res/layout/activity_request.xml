@@ -7,69 +7,81 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:id="@+id/main"
-    tools:context=".ShopAddActivity">
+    tools:context=".OrderActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/purple_background"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="50dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="0dp"
+            android:src="@drawable/sutd_logo">
+
+        </ImageView>
+
+
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:text="TAKE A REQUEST">
-    </TextView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center">
-
         <TextView
-            android:id="@+id/textUser"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="left"
-            android:text="Logged in as:">
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:text="Hi, PLACEHOLDER">
+
+
         </TextView>
 
         <ImageView
+            android:id="@+id/tester"
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:gravity="center"
             android:src="@drawable/user_icon">
+
+
         </ImageView>
 
+
     </LinearLayout>
+
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:text="Earn points for doing requests!">
-    </TextView>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="TAKE A REQUEST"
+        android:textSize="24sp"
+        android:paddingBottom="10dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="380dp"
-        android:orientation="vertical"
-        android:gravity="center">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/requestRecyclerView"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="470dp">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="true"
-            android:scrollbars="vertical"
-            android:padding="16dp"/>
-
-
-    </LinearLayout>
+            android:orientation="vertical"
+            android:id="@+id/scrollwheel">
+        </LinearLayout>
+    </ScrollView>
+    <include
+        layout="@layout/navbar"/>
 
 
 

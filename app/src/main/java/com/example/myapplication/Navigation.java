@@ -21,7 +21,7 @@ public class Navigation {
 
         if (btn_shop_add != null) {
             btn_shop_add.setOnClickListener(v -> {
-                Intent intent = new Intent(activity, ShopAddActivity.class);
+                Intent intent = new Intent(activity, CartActivity.class);
                 //Intent intent = new Intent(activity, ShopRemoveActivity.class);
                 activity.startActivity(intent);
             });
@@ -29,7 +29,7 @@ public class Navigation {
 
         if (btn_shop_remove != null) {
             btn_shop_remove.setOnClickListener(v -> {
-                Intent intent = new Intent(activity, ShopRemoveActivity.class);
+                Intent intent = new Intent(activity, RequestActivity.class);
                 activity.startActivity(intent);
             });
         }

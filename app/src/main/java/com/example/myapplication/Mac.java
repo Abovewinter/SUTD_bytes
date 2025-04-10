@@ -1,16 +1,13 @@
 package com.example.myapplication;
 
-import android.graphics.drawable.Drawable;
-import android.widget.Button;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Koi implements FoodOption{
+public class Mac implements FoodOption{
     @Override
     public String getShopName() {
-        return "KOI";
+        return "MACDONALD";
     }
 
     @Override
@@ -20,27 +17,27 @@ public class Koi implements FoodOption{
 
     @Override
     public double getdistance() {
-        return 5.1;
+        return 2.6;
     }
 
     @Override
     public String getstorelocation() {
-        return "#B1-18";
+        return "#01-10";
     }
 
     @Override
     public List<String> getcat() {
-        return Arrays.asList("Milk Tea","Black Tea");
+        return Arrays.asList("Burger","Sides");
     }
 
     @Override
     public List<String> getFoodNames() {
-        return Arrays.asList("Jumbo Milk Tea", "Lychee Black Tea");
+        return Arrays.asList("Fish Burger", "French Fries");
     }
 
     @Override
     public List<Double> getPrices() {
-        return Arrays.asList(5.8, 4.9);
+        return Arrays.asList(3.5, 2.2);
     }
 
     @Override
@@ -50,7 +47,6 @@ public class Koi implements FoodOption{
 
     @Override
     public List<Integer> DrawableImage() {
-        return Arrays.asList(R.drawable.jumbomilktea_removebg_preview,R.drawable.jumbomilktea_removebg_preview,R.drawable.lycheeblacktea);
+        return Arrays.asList(R.drawable.mc_donald,R.drawable.macfishburger,R.drawable.macfrenchfries);
     }
-
 }
