@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -15,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends Activity {
 
     private EditText emailEditText, passwordEditText, confirmPasswordEditText;
     private Button registerButton;
