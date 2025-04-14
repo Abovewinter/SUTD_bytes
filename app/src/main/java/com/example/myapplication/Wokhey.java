@@ -16,6 +16,11 @@ public class Wokhey implements FoodOption {
     }
 
     @Override
+    public double getdistance() {
+        return 3.3;
+    }
+
+    @Override
     public String getstorelocation() {
         return "#B1-07";
     }

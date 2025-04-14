@@ -12,25 +12,30 @@ public class Order implements FoodOption {
     private List<String> items;
     private List<Integer> quantities;
     private List<Double> prices;
-    //private double totalPrice;
-
+    private double distance;
     private int image;
 
     public Order(String shopName, String mallLocation, String storeLocation,
-                 List<String> items, List<Integer> quantities, List<Double> prices,Integer Image) {
+                 List<String> items, List<Integer> quantities, List<Double> prices,Integer Image, double distance) {
         this.shopName = shopName;
         this.mallLocation = mallLocation;
         this.storeLocation = storeLocation;
         this.items = items;
         this.quantities = quantities;
         this.prices = prices;
-        //this.totalPrice = totalPrice;
         this.image = Image;
+        this.distance = distance;
     }
 
     // Getters only — we don’t want this object getting ideas of grandeur
     public String getShopName() { return shopName; }
     public String getmalllocation() { return mallLocation; }
+
+    @Override
+    public double getdistance() {
+        return distance;
+    }
+
     public String getstorelocation() { return storeLocation; }
 
     @Override

@@ -16,6 +16,11 @@ public class Mac implements FoodOption{
     }
 
     @Override
+    public double getdistance() {
+        return 2.6;
+    }
+
+    @Override
     public String getstorelocation() {
         return "#01-10";
     }

@@ -12,24 +12,23 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class UserProfileActivity extends Activity {
+public class RedeemActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.activity_redeem);
         Navigation.setupNavigation(this);
 
-        Button btn_redeem = findViewById(R.id.redeem_button);
-        btn_redeem.setOnClickListener(new View.OnClickListener() {
+        Button btn_confirm = findViewById(R.id.btn_confirm_redeem);
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserProfileActivity.this, RedeemActivity.class);
+                Intent intent = new Intent(RedeemActivity.this, UserProfileActivity.class);
                 startActivity(intent);
             }
         });
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

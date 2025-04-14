@@ -19,6 +19,11 @@ public class Koi implements FoodOption{
     }
 
     @Override
+    public double getdistance() {
+        return 5.1;
+    }
+
+    @Override
     public String getstorelocation() {
         return "#B1-18";
     }

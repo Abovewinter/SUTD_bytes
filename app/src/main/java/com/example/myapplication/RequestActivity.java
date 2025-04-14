@@ -52,12 +52,12 @@ public class RequestActivity extends Activity {
         {
             case "mc"://strings are just for testing
                 order = new Order("McDonalds", "Pentagon", "L1",
-                        Arrays.asList("Fish Burger","French Fries"), Arrays.asList(3,2), Arrays.asList(3.5,2.2),R.drawable.mc_donald);
+                        Arrays.asList("Fish Burger","French Fries"), Arrays.asList(3,2), Arrays.asList(3.5,2.2),R.drawable.mc_donald,2.6);
                 storecard.mcd(ord, this, points);//static method of stordercard, formats orderframe into McDonald's widget(example)
                 break;
             case "koi":
                 order = new Order("Koi", "Changi City Point", "#B1-18",
-                        Arrays.asList("Jumbo Milk Tea"), Arrays.asList(1), Arrays.asList(5.8),R.drawable.jumbomilktea_removebg_preview);
+                        Arrays.asList("Jumbo Milk Tea"), Arrays.asList(1), Arrays.asList(5.8),R.drawable.jumbomilktea_removebg_preview,5.1);
                 storecard.koi(ord, this, points);//static method of stordercard, formats orderframe into Koi widget
                 break;
 
