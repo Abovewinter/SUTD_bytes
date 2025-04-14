@@ -26,7 +26,8 @@ public class FoodOptionActivity extends Activity {
     double price1 = 0;
     double price2 = 0;
     FoodOption option;
-    //CartItem cartItem;
+    CartItem cartItem;
+    //List<CartItem> cart;
     ArrayList<CartItem> cart = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {

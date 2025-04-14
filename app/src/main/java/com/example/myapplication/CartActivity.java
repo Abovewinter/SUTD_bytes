@@ -25,6 +25,7 @@ import java.util.List;
 public class CartActivity extends Activity {
     int quantity1 = 1;
     double deliveryFee = 1.50;
+    double grandTotal = 0.0;
     String redeem_distance = "short distance";
     List<Double> prices1 = Arrays.asList(5.8,3.5,5.5);
     List<Double> prices2 = Arrays.asList(4.9,2.2,6.0);
@@ -50,7 +51,6 @@ public class CartActivity extends Activity {
             Button add1 = cartItemView.findViewById(R.id.add_1);
             Button remove1 = cartItemView.findViewById(R.id.remove_1);
             TextView quantity = cartItemView.findViewById(R.id.food_quantity_cart);
-            //initial quantity 1
             quantity.setText(String.valueOf(quantity1));
 
             //TextView storename = cartItemView.findViewById(R.id.store_name_cart);
@@ -64,10 +64,20 @@ public class CartActivity extends Activity {
             foodname.setText(item.getFoodName());
             deliveryprice.setText(String.format("$%.2f", deliveryFee));
             distance.setText(redeem_distance);
-            quantity.setText(item.getQuantity() + "x");
+            //quantity.setText(item.getQuantity() + "x");
             price.setText("$" + String.format("%.2f", item.getTotalPrice()));
+            //price.setText("$" + String.format("%.2f", item.getTotalPrice()));
 
-            // Calculate total + delivery fee
+            final int[] itemQuantity = {item.getQuantity()};
+            //double unitPrice = item.getTotalPrice() / item.getQuantity();
+           // double itemTotalPrice = unitPrice * itemQuantity[0];
+           // grandTotal += itemTotalPrice;
+
+           // quantity.setText(itemQuantity[0] + "x");
+           // price.setText(String.format("$%.2f", itemTotalPrice));
+           // totalprice.setText(String.format("$%.2f", grandTotal + deliveryFee));
+
+            //Calculate total + delivery fee
             double total = item.getTotalPrice() + deliveryFee;
             totalprice.setText("$" + String.format("%.2f", total));
 
@@ -76,14 +86,27 @@ public class CartActivity extends Activity {
         add1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                quantity1 += 1;
-                quantity.setText((String.format("%dx", quantity1)));
+                //quantity1 += 1;
+                //quantity.setText((String.format("%dx", quantity1)));
 
-                double pricing = quantity1 * prices1.get(0);
+               // double pricing = quantity1 * prices1.get(0);
+                //price.setText("$" + pricing);
+
+                itemQuantity[0]++;
+               // item.setQuantity(itemQuantity[0]);
+                quantity.setText(itemQuantity[0] + "x");
+
+                double pricing = itemQuantity[0] * item.getTotalPrice();
                 price.setText("$" + pricing);
 
-                double total = quantity1 * prices1.get(0) + deliveryFee;
-                totalprice.setText("$" + total);
+                //double updatedPrice = itemQuantity[0] * unitPrice;
+               // price.setText(String.format("$%.2f", updatedPrice));
+                recalculateTotal(totalprice);
+
+                double total = item.getTotalPrice() + deliveryFee;
+                totalprice.setText("$" + String.format("%.2f", total));
+
+                //recalculateTotal(cartOrderLayout, totalprice);
                 
             }
         });
@@ -92,20 +115,47 @@ public class CartActivity extends Activity {
         remove1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (quantity1 > 0) {
-                    quantity1 -= 1;
+                if (itemQuantity[0] > 1) {
+                    //quantity1 -= 1;
 
-                    double total = quantity1 * prices2.get(0);
-                    totalprice.setText("$" + total);
+                   // double total = quantity1 * prices2.get(0);
+                   // totalprice.setText("$" + total);
+
+                  // double pricing = quantity1 * prices1.get(0);
+                   //price.setText("$" + pricing);
+
+                   // quantity.setText((String.format("%dx", quantity1)));
+
+                    itemQuantity[0]--;
+                    //item.setQuantity(itemQuantity[0]);
+                    quantity.setText(itemQuantity[0] + "x");
+
+                    double pricing = itemQuantity[0] * item.getTotalPrice();
+                    price.setText("$" + pricing);
+
+                    //double updatedPrice = itemQuantity[0] * unitPrice;
+                    //price.setText(String.format("$%.2f", updatedPrice));
+                   recalculateTotal(totalprice);
+
+                    double total = item.getTotalPrice() + deliveryFee;
+                    totalprice.setText("$" + String.format("%.2f", total));
                 }
-                quantity.setText((String.format("%dx", quantity1)));
-                if (quantity1 == 0){
-                    storename.setText("NIL");
-                    foodname.setText("Your cart is empty");
-                    price.setText("NIL");
-                    totalprice.setText("NIL");
-                    add1.setVisibility(View.GONE);
-                    remove1.setVisibility(View.GONE);
+
+                else {
+                    //storename.setText("NIL");
+                    //foodname.setText("Your cart is empty");
+                    //price.setText("NIL");
+                    //totalprice.setText("NIL");
+
+                    //storename.setVisibility(View.GONE);
+                    //foodname.setVisibility(View.GONE);
+                    //price.setVisibility(View.GONE);
+                    //totalprice.setVisibility(View.GONE);
+                    //quantity.setVisibility(View.GONE);
+                    //add1.setVisibility(View.GONE);
+                    //remove1.setVisibility(View.GONE);
+
+                    cartItemView.setVisibility(View.GONE);
                 }
             }
         });
@@ -120,7 +170,7 @@ public class CartActivity extends Activity {
                 String locationtext = location.getText().toString();
                 if (locationtext.isEmpty()) {
                     Toast.makeText(CartActivity.this, "Enter your location!", Toast.LENGTH_SHORT).show();
-                } else if (cartItems == null || quantity1 == 0) {
+                } else if (cartItems == null || itemQuantity[0] == 0) {
                     Toast.makeText(CartActivity.this, "Your cart is empty!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(CartActivity.this, "Request successfully sent!", Toast.LENGTH_LONG).show();
@@ -144,6 +194,15 @@ public class CartActivity extends Activity {
             return insets;
         });
     }
-
+    private void recalculateTotal(TextView totalView) {
+        double subtotal = 0.0;
+        for (CartItem item : cartItems) {
+            if (item.getQuantity() > 0) {
+                subtotal += item.getTotalPrice() * item.getQuantity();
+            }
+        }
+        double finalTotal = subtotal + deliveryFee;
+        totalView.setText(String.format("$%.2f", finalTotal));
+    }
 
 }
