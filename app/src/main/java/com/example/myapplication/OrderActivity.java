@@ -40,8 +40,10 @@ public class OrderActivity extends Activity {
         Button btnKoi = findViewById(R.id.koi_home);
         Button btnWokhey = findViewById(R.id.wokhey_home);
         Button btnMc = findViewById(R.id.mc_home);
+        //uncomment this if you want your old functionality
+       // btnKoi.setOnClickListener(v -> openFoodOptionActivity(new Koi()));
+        btnKoi.setOnClickListener(v -> openOrderDetailsActivity(new Koi()));
 
-        btnKoi.setOnClickListener(v -> openFoodOptionActivity(new Koi()));
         btnWokhey.setOnClickListener(v -> openFoodOptionActivity(new Wokhey()));
         btnMc.setOnClickListener(v -> openFoodOptionActivity(new Mac()));
 
@@ -58,4 +60,10 @@ public class OrderActivity extends Activity {
         intent.putExtra("food_option", option);
         startActivity(intent);
     }
+    private void openOrderDetailsActivity(FoodOption option) {
+        Intent intent = new Intent(this, OrderDetailsActivity.class);
+        intent.putExtra("selection_details", new FoodSelectionDetails(option));
+        startActivity(intent);
+    }
+
 }
