@@ -28,6 +28,8 @@ public class FoodOptionActivity extends Activity {
     FoodOption option;
     CartItem cartItem;
     //List<CartItem> cart;
+    boolean isselacted1 = false;
+    boolean isselacted2 = false;
     ArrayList<CartItem> cart = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,19 +81,12 @@ public class FoodOptionActivity extends Activity {
             add1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    isselacted1 = true;
                     Toast.makeText(FoodOptionActivity.this, "Added to cart!", Toast.LENGTH_SHORT).show();
 
                     quantity1++;
                     price1 += option.getPrices().get(0);
 
-                    CartItem cartItem = new CartItem(
-                            option.getShopName(),
-                            option.getFoodNames().get(0),
-                            quantity1,
-                            price1,
-                            option.getdistance()
-                    );
-                    cart.add(cartItem);
                 }
             });
             //add button 2
@@ -99,19 +94,12 @@ public class FoodOptionActivity extends Activity {
             add2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    isselacted2 = true;
                     Toast.makeText(FoodOptionActivity.this, "Added to cart!", Toast.LENGTH_SHORT).show();
 
                     quantity2++;
                     price2 += option.getPrices().get(1);
 
-                    CartItem cartItem2 = new CartItem(
-                            option.getShopName(),
-                            option.getFoodNames().get(1),
-                            quantity2,
-                            price2,
-                            option.getdistance()
-                    );
-                    cart.add(cartItem2);
                 }
             });
 
@@ -126,6 +114,28 @@ public class FoodOptionActivity extends Activity {
         cartbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isselacted1){
+                    CartItem cartItem = new CartItem(
+                            option.getShopName(),
+                            option.getFoodNames().get(0),
+                            quantity1,
+                            price1,
+                            option.getdistance()
+                    );
+                    cart.add(cartItem);
+                }
+
+                if (isselacted2) {
+                    CartItem cartItem2 = new CartItem(
+                            option.getShopName(),
+                            option.getFoodNames().get(1),
+                            quantity2,
+                            price2,
+                            option.getdistance()
+                    );
+                    cart.add(cartItem2);
+                }
+
                 Intent intent = new Intent(FoodOptionActivity.this, CartActivity.class);
                 intent.putExtra("cart_items", cart);
                 startActivity(intent);

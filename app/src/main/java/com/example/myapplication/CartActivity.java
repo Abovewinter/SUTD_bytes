@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,46 +19,60 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.gson.Gson;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+
 public class CartActivity extends Activity {
-    int quantity1 = 1;
     double deliveryFee = 1.50;
     double grandTotal = 0.0;
     String redeem_distance = "short distance";
-    List<Double> prices1 = Arrays.asList(5.8,3.5,5.5);
-    List<Double> prices2 = Arrays.asList(4.9,2.2,6.0);
+    List<Double> pricelist = new ArrayList<>();
     List<CartItem> cartItems;
     List<Button> addButtons = new ArrayList<>();
     List<Button> removeButtons = new ArrayList<>();
+
+
+    private final String sharedPrefFile = "com.example.android.cartsaver";
+    public static final String KEY = "MyKey";
+    SharedPreferences mPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cart);
         Navigation.setupNavigation(this);
-        cartItems = (List<CartItem>) getIntent().getSerializableExtra("cart_items"); // ✅
+
+        mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        cartItems = (List<CartItem>) getIntent().getSerializableExtra("cart_items");
 
         // Reference the scrollable container inside ScrollView
         LinearLayout cartOrderLayout = findViewById(R.id.cart_order);
         TextView storename = findViewById(R.id.store_name_cart);
 
+        if (cartItems == null) {
+            String cartJson = mPreferences.getString(KEY, null);
+            if (cartJson != null) {
+                Gson gson = new Gson();
+                CartItem[] cartArray = gson.fromJson(cartJson, CartItem[].class);
+                cartItems = new ArrayList<>(Arrays.asList(cartArray));
+            }
+        }
 
-        for (CartItem item : cartItems) {
+        for (int i = 0; i < cartItems.size(); i++) {
+            CartItem item = cartItems.get(i);
             View cartItemView = getLayoutInflater().inflate(R.layout.item_cart, null);
-            // Add the inflated cart item view into the scroll container
             cartOrderLayout.addView(cartItemView);
 
             Button add1 = cartItemView.findViewById(R.id.add_1);
             Button remove1 = cartItemView.findViewById(R.id.remove_1);
             TextView quantity = cartItemView.findViewById(R.id.food_quantity_cart);
-            quantity.setText(String.valueOf(quantity1));
 
-            //TextView storename = cartItemView.findViewById(R.id.store_name_cart);
             TextView foodname = cartItemView.findViewById(R.id.food_name_cart);
             TextView deliveryprice = findViewById(R.id.delivery_fee_cart);
             TextView distance = findViewById(R.id.reedeming_distance_cart);
@@ -70,22 +86,11 @@ public class CartActivity extends Activity {
             foodname.setText(item.getFoodName());
             deliveryprice.setText(String.format("$%.2f", deliveryFee));
             distance.setText(redeem_distance);
-            //quantity.setText(item.getQuantity() + "x");
             price.setText("$" + String.format("%.2f", item.getTotalPrice()));
-            //price.setText("$" + String.format("%.2f", item.getTotalPrice()));
 
+            //one element array -> each loop holds diferrent quantity for each item
             final int[] itemQuantity = {item.getQuantity()};
-            //double unitPrice = item.getTotalPrice() / item.getQuantity();
-           // double itemTotalPrice = unitPrice * itemQuantity[0];
-           // grandTotal += itemTotalPrice;
-
-           // quantity.setText(itemQuantity[0] + "x");
-           // price.setText(String.format("$%.2f", itemTotalPrice));
-           // totalprice.setText(String.format("$%.2f", grandTotal + deliveryFee));
-
-            //Calculate total + delivery fee
-           // double total = item.getTotalPrice() + deliveryFee;
-           // totalprice.setText("$" + String.format("%.2f", total));
+            quantity.setText(String.valueOf(itemQuantity[0]));
             recalculateTotal(totalprice);
 
 
@@ -93,28 +98,15 @@ public class CartActivity extends Activity {
         add1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //quantity1 += 1;
-                //quantity.setText((String.format("%dx", quantity1)));
-
-               // double pricing = quantity1 * prices1.get(0);
-                //price.setText("$" + pricing);
-
                 itemQuantity[0]++;
                 item.setQuantity(itemQuantity[0]);
-                quantity.setText(itemQuantity[0] + "x");
+                quantity.setText(String.valueOf(itemQuantity[0]));
 
                 double pricing = itemQuantity[0] * item.getTotalPrice();
-                price.setText("$" + pricing);
+                price.setText("$" + String.format("%.2f", pricing));
+                pricelist.add(pricing);
 
-                //double updatedPrice = itemQuantity[0] * unitPrice;
-               // price.setText(String.format("$%.2f", updatedPrice));
                 recalculateTotal(totalprice);
-
-               // double total = pricing + deliveryFee;
-                //totalprice.setText("$" + String.format("%.2f", total));
-
-                //recalculateTotal(cartOrderLayout, totalprice);
-                
             }
         });
 
@@ -123,56 +115,26 @@ public class CartActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (itemQuantity[0] > 1) {
-                    //quantity1 -= 1;
-
-                   // double total = quantity1 * prices2.get(0);
-                   // totalprice.setText("$" + total);
-
-                  // double pricing = quantity1 * prices1.get(0);
-                   //price.setText("$" + pricing);
-
-                   // quantity.setText((String.format("%dx", quantity1)));
 
                     itemQuantity[0]--;
                     item.setQuantity(itemQuantity[0]);
-                    quantity.setText(itemQuantity[0] + "x");
+                    quantity.setText(String.valueOf(itemQuantity[0]));
 
                     double pricing = itemQuantity[0] * item.getTotalPrice();
-                    price.setText("$" + pricing);
 
-                    //double updatedPrice = itemQuantity[0] * unitPrice;
-                    //price.setText(String.format("$%.2f", updatedPrice));
+                    price.setText("$" + String.format("%.2f", pricing));
+                    pricelist.remove(pricing);
+
                    recalculateTotal(totalprice);
-
-                    //double total = pricing + deliveryFee;
-                    //totalprice.setText("$" + String.format("%.2f", total));
                 }
 
                 else {
-                    //storename.setText("NIL");
-                    //foodname.setText("Your cart is empty");
-                    //price.setText("NIL");
-                    //totalprice.setText("NIL");
-
-                    //storename.setVisibility(View.GONE);
-                    //foodname.setVisibility(View.GONE);
-                    //price.setVisibility(View.GONE);
-                    //totalprice.setVisibility(View.GONE);
-                    //quantity.setVisibility(View.GONE);
-                    //add1.setVisibility(View.GONE);
-                    //remove1.setVisibility(View.GONE);
                     itemQuantity[0] = 0;
                     item.setQuantity(itemQuantity[0]);
 
                     cartItemView.setVisibility(View.GONE);
 
                     recalculateTotal(totalprice);
-
-                    //double pricing = itemQuantity[0] * item.getTotalPrice();
-
-                   // double total = pricing + deliveryFee;
-                    //totalprice.setText("$" + String.format("%.2f", total));
-
                 }
             }
         });
@@ -192,27 +154,23 @@ public class CartActivity extends Activity {
                 } else {
                     Toast.makeText(CartActivity.this, "Request successfully sent!", Toast.LENGTH_LONG).show();
 
-                    confirmButton.setVisibility(View.GONE);
-                    //add1.setVisibility(View.GONE);
-                    //remove1.setVisibility(View.GONE);
-                    for (Button a : addButtons) a.setVisibility(View.GONE);
-                    for (Button b : removeButtons) b.setVisibility(View.GONE);
+                    SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+                    Gson gson = new Gson();
+                    String finaljson = gson.toJson(cartItems);
+                    preferencesEditor.putString("confirmed_cart",finaljson);
+                    preferencesEditor.putString("meetup_location", locationtext);
+                    preferencesEditor.apply();
 
-                    // Make location field uneditable
-                    location.setFocusable(false);
-                    location.setClickable(false);
-                    location.setCursorVisible(false);
-                    location.setKeyListener(null);
+                    preferencesEditor.remove(KEY);
+                    preferencesEditor.apply();
+                    cartItems.clear();
+
+                    Intent intent = new Intent(CartActivity.this, MessagesActivity.class);
+                    startActivity(intent);
                 }
             }
         });
         }
-
-        //update total price
-       // TextView totalPrice = findViewById(R.id.total_price_cart);
-       // double total = quantity1 * option.getPrices().get(0) + quantity2 * option.getPrices().get(1);
-       // totalPrice.setText((String.format("$%.2f", total)));
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -220,6 +178,7 @@ public class CartActivity extends Activity {
             return insets;
         });
     }
+
     private void recalculateTotal(TextView totalView) {
         double subtotal = 0.0;
         for (CartItem item : cartItems) {
@@ -229,6 +188,18 @@ public class CartActivity extends Activity {
         }
         double finalTotal = subtotal + deliveryFee;
         totalView.setText(String.format("$%.2f", finalTotal));
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+
+        Gson gson = new Gson();
+        String cartJson = gson.toJson(cartItems);
+
+        // Save to SharedPreferences
+        preferencesEditor.putString(KEY, cartJson);
+        preferencesEditor.apply();
     }
 
 }
