@@ -18,6 +18,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +31,8 @@ public class CartActivity extends Activity {
     List<Double> prices1 = Arrays.asList(5.8,3.5,5.5);
     List<Double> prices2 = Arrays.asList(4.9,2.2,6.0);
     List<CartItem> cartItems;
+    List<Button> addButtons = new ArrayList<>();
+    List<Button> removeButtons = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,9 @@ public class CartActivity extends Activity {
             TextView price = cartItemView.findViewById(R.id.food_price_cart);
             TextView totalprice = findViewById(R.id.total_price_cart);
 
+            addButtons.add(add1);
+            removeButtons.add(remove1);
+
             storename.setText(item.getStoreName());
             foodname.setText(item.getFoodName());
             deliveryprice.setText(String.format("$%.2f", deliveryFee));
@@ -78,8 +84,9 @@ public class CartActivity extends Activity {
            // totalprice.setText(String.format("$%.2f", grandTotal + deliveryFee));
 
             //Calculate total + delivery fee
-            double total = item.getTotalPrice() + deliveryFee;
-            totalprice.setText("$" + String.format("%.2f", total));
+           // double total = item.getTotalPrice() + deliveryFee;
+           // totalprice.setText("$" + String.format("%.2f", total));
+            recalculateTotal(totalprice);
 
 
             // Increase quantity
@@ -93,7 +100,7 @@ public class CartActivity extends Activity {
                 //price.setText("$" + pricing);
 
                 itemQuantity[0]++;
-               // item.setQuantity(itemQuantity[0]);
+                item.setQuantity(itemQuantity[0]);
                 quantity.setText(itemQuantity[0] + "x");
 
                 double pricing = itemQuantity[0] * item.getTotalPrice();
@@ -103,8 +110,8 @@ public class CartActivity extends Activity {
                // price.setText(String.format("$%.2f", updatedPrice));
                 recalculateTotal(totalprice);
 
-                double total = item.getTotalPrice() + deliveryFee;
-                totalprice.setText("$" + String.format("%.2f", total));
+               // double total = pricing + deliveryFee;
+                //totalprice.setText("$" + String.format("%.2f", total));
 
                 //recalculateTotal(cartOrderLayout, totalprice);
                 
@@ -127,7 +134,7 @@ public class CartActivity extends Activity {
                    // quantity.setText((String.format("%dx", quantity1)));
 
                     itemQuantity[0]--;
-                    //item.setQuantity(itemQuantity[0]);
+                    item.setQuantity(itemQuantity[0]);
                     quantity.setText(itemQuantity[0] + "x");
 
                     double pricing = itemQuantity[0] * item.getTotalPrice();
@@ -137,8 +144,8 @@ public class CartActivity extends Activity {
                     //price.setText(String.format("$%.2f", updatedPrice));
                    recalculateTotal(totalprice);
 
-                    double total = item.getTotalPrice() + deliveryFee;
-                    totalprice.setText("$" + String.format("%.2f", total));
+                    //double total = pricing + deliveryFee;
+                    //totalprice.setText("$" + String.format("%.2f", total));
                 }
 
                 else {
@@ -154,8 +161,18 @@ public class CartActivity extends Activity {
                     //quantity.setVisibility(View.GONE);
                     //add1.setVisibility(View.GONE);
                     //remove1.setVisibility(View.GONE);
+                    itemQuantity[0] = 0;
+                    item.setQuantity(itemQuantity[0]);
 
                     cartItemView.setVisibility(View.GONE);
+
+                    recalculateTotal(totalprice);
+
+                    //double pricing = itemQuantity[0] * item.getTotalPrice();
+
+                   // double total = pricing + deliveryFee;
+                    //totalprice.setText("$" + String.format("%.2f", total));
+
                 }
             }
         });
@@ -174,9 +191,18 @@ public class CartActivity extends Activity {
                     Toast.makeText(CartActivity.this, "Your cart is empty!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(CartActivity.this, "Request successfully sent!", Toast.LENGTH_LONG).show();
+
                     confirmButton.setVisibility(View.GONE);
-                    add1.setVisibility(View.GONE);
-                    remove1.setVisibility(View.GONE);
+                    //add1.setVisibility(View.GONE);
+                    //remove1.setVisibility(View.GONE);
+                    for (Button a : addButtons) a.setVisibility(View.GONE);
+                    for (Button b : removeButtons) b.setVisibility(View.GONE);
+
+                    // Make location field uneditable
+                    location.setFocusable(false);
+                    location.setClickable(false);
+                    location.setCursorVisible(false);
+                    location.setKeyListener(null);
                 }
             }
         });

@@ -88,7 +88,8 @@ public class FoodOptionActivity extends Activity {
                             option.getShopName(),
                             option.getFoodNames().get(0),
                             quantity1,
-                            price1
+                            price1,
+                            option.getdistance()
                     );
                     cart.add(cartItem);
                 }
@@ -107,7 +108,8 @@ public class FoodOptionActivity extends Activity {
                             option.getShopName(),
                             option.getFoodNames().get(1),
                             quantity2,
-                            price2
+                            price2,
+                            option.getdistance()
                     );
                     cart.add(cartItem2);
                 }
