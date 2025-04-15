@@ -27,6 +27,8 @@ public class FoodOptionActivity extends Activity {
     double price2 = 0;
     FoodOption option;
     CartItem cartItem;
+    //List<CartItem> cart;
+    ArrayList<CartItem> cart = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,13 +84,14 @@ public class FoodOptionActivity extends Activity {
                     quantity1++;
                     price1 += option.getPrices().get(0);
 
-                    cartItem = new CartItem(
+                    CartItem cartItem = new CartItem(
                             option.getShopName(),
                             option.getFoodNames().get(0),
                             quantity1,
                             price1,
                             option.getdistance()
                     );
+                    cart.add(cartItem);
                 }
             });
             //add button 2
@@ -98,16 +101,17 @@ public class FoodOptionActivity extends Activity {
                 public void onClick(View v) {
                     Toast.makeText(FoodOptionActivity.this, "Added to cart!", Toast.LENGTH_SHORT).show();
 
-                    quantity1++;
-                    price1 += option.getPrices().get(1);
+                    quantity2++;
+                    price2 += option.getPrices().get(1);
 
-                    cartItem = new CartItem(
+                    CartItem cartItem2 = new CartItem(
                             option.getShopName(),
                             option.getFoodNames().get(1),
-                            quantity1,
-                            price1,
+                            quantity2,
+                            price2,
                             option.getdistance()
                     );
+                    cart.add(cartItem2);
                 }
             });
 
@@ -123,7 +127,7 @@ public class FoodOptionActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FoodOptionActivity.this, CartActivity.class);
-                intent.putExtra("cart_items", cartItem);
+                intent.putExtra("cart_items", cart);
                 startActivity(intent);
             }
         });
