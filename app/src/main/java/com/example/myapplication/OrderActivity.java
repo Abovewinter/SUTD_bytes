@@ -41,8 +41,8 @@ public class OrderActivity extends Activity {
         Button btnWokhey = findViewById(R.id.wokhey_home);
         Button btnMc = findViewById(R.id.mc_home);
         //uncomment this if you want your old functionality
-       // btnKoi.setOnClickListener(v -> openFoodOptionActivity(new Koi()));
-        btnKoi.setOnClickListener(v -> openOrderDetailsActivity(new Koi()));
+       btnKoi.setOnClickListener(v -> openFoodOptionActivity(new Koi()));
+       // btnKoi.setOnClickListener(v -> openOrderDetailsActivity(new Koi()));
 
         btnWokhey.setOnClickListener(v -> openFoodOptionActivity(new Wokhey()));
         btnMc.setOnClickListener(v -> openFoodOptionActivity(new Mac()));
