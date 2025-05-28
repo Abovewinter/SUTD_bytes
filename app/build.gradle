@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    implementation libs.firebase.firestore
 
     implementation libs.androidx.core.ktx
     implementation libs.androidx.lifecycle.runtime.ktx
@@ -59,5 +60,13 @@ dependencies {
     debugImplementation libs.androidx.ui.tooling
     debugImplementation libs.androidx.ui.test.manifest
     implementation libs.material
-    implementation 'com.google.code.gson:gson:2.10.1'
+    // Import the BoM for the Firebase platform
+    implementation(platform(libs.firebase.bom))
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation(libs.firebase.auth)
+
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor libs.androidx.room.compiler
 }

@@ -84,6 +84,9 @@ public class RegistrationActivity extends Activity {
                     if (task.isSuccessful()) {
                         // If registration is successful, sign in the user
                         FirebaseUser user = mAuth.getCurrentUser();
+                        String uid = user.getUid();
+                        FirestoreHelper FirestoreHelper = new FirestoreHelper();
+                        FirestoreHelper.addNewUserToFirestore(uid,  email);
                         Toast.makeText(RegistrationActivity.this, "Registration successful.", Toast.LENGTH_SHORT).show();
 
                         // Navigate to login or home activity

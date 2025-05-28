@@ -40,6 +40,10 @@
         <activity
             android:name=".OrderActivity"
             android:exported="false" />
+        <activity android:name=".OrderDetailsActivity"
+            android:exported="false"
+            />
+
         <activity
             android:name=".LoginActivity"
             android:exported="true"
